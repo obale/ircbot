@@ -26,6 +26,7 @@ def readConfig():
     readConfig.HOST = config.get('server', 'host')
     readConfig.PORT = config.getint('server', 'port')
     readConfig.PASS = config.get('server', 'password')
+    readConfig.SSL = config.get('server', 'ssl')
     readConfig.NICKNAME = config.get('bot', 'nickname')
     readConfig.FULLNAME = config.get('bot', 'fullname')
     readConfig.IDENT = config.get('bot', 'ident')
@@ -38,19 +39,32 @@ def readConfig():
 
 def connect():
     readConfig()
-    connect.soc = socket.socket()
-    connect.soc.connect( (readConfig.HOST, readConfig.PORT) )
-    connect.soc.send('PASS ' + readConfig.PASS + '\r\n')
-    connect.soc.send('USER ' + readConfig.IDENT + ' 8 * :' + readConfig.FULLNAME + '\r\n')
-    connect.soc.send('NICK ' + readConfig.NICKNAME + '\r\n')
-    connect.starttime = datetime.datetime.now()
-    joinMainchannel()
+    if readConfig.SSL == "false":
+        connect.soc = socket.socket()
+        connect.soc.connect( (readConfig.HOST, readConfig.PORT) )
+        connect.soc.send('PASS ' + readConfig.PASS + '\r\n')
+        connect.soc.send('USER ' + readConfig.IDENT + ' 8 * :' + readConfig.FULLNAME + '\r\n')
+        connect.soc.send('NICK ' + readConfig.NICKNAME + '\r\n')
+        connect.starttime = datetime.datetime.now()
+        joinMainchannel()
+    else:
+        print "No SSL support!"
+        #from M2Crypto import SSL, httpslib
+        #context = SSL.Context("sslv3")
+        ## ATTENTION: The server certificate is not checked!!! 
+        #context.set_verify(0, depth = 0)
+        #connect.soc = httpslib.HTTPSConnection(readConfig.HOST, readConfig.PORT, ssl_context=context)
+        #SSL.Connection.postConnectionCheck = None
+        #connect.soc.connect()
 
 def joinMainchannel():
     connect.soc.send('JOIN ' + readConfig.CHANNEL + '\r\n')
 
 def getSocket():
     return connect.soc
+
+def getSSL():
+    return readConfig.SSL
 
 def getNickname():
     return readConfig.NICKNAME
@@ -94,6 +108,24 @@ def getVersion():
     msg.append("          `--'")
     msg.append("by Alex Oberhauser")
     msg.append("http://irc.networld.to")
+
+    return msg
+
+def getHelp():
+    msg = []
+    msg.append('-= Channel/Query commands')
+    msg.append('   * !version')
+    msg.append('   * !uptime')
+    msg.append('   * !quote')
+    msg.append('   * !tweet username')
+    msg.append('   * !header website')
+    msg.append('   * !search searchterm')
+    msg.append('   * !msg user msg')
+    msg.append('   * !feed, !feed name, !feed name x')
+    msg.append('-= CTCP commands')
+    msg.append('   * /CTCP ' + readConfig.NICKNAME + ' VERSION')
+    msg.append('   * /CTCP ' + readConfig.NICKNAME + ' USERINFO')
+    msg.append('   * /CTCP ' + readConfig.NICKNAME + ' TIME')
 
     return msg
 

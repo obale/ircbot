@@ -91,6 +91,8 @@ def getURL(feedname):
         url = 'http://www.sciencedaily.com/rss/computers_math.xml'
     elif ( feedname == 'theregister' ):
         url = 'http://www.theregister.co.uk/headlines.atom'
+    elif ( feedname == 'wired' ):
+        url = 'http://feeds.wired.com/wired/index'
     else:
         return None
     return url
@@ -107,6 +109,6 @@ def getFeeds():
     msg.append('-= Projects : moksec')
     msg.append('-= Security : milw0rm, heisesec, sectube, debsec')
     msg.append('-= News     : ntv, n24, spiegel, cnn, bbc, prolinux, slashdot')
-    msg.append('-= Science  : sciencedaily, theregister')
+    msg.append('-= Science  : sciencedaily, theregister, wired')
     msg.append('-= Torrent  : isohunt, torrent')
     return msg

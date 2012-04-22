@@ -85,7 +85,9 @@ def reactOnMSG(soc, line):
                 msg = feed.sendFeed(feedname)
     elif ( privmsg == '!version' ):
         msg = helper.getVersion()
-    else: msg = []
+    elif ( privmsg == '!help' ):
+        msg = helper.getHelp()
+    else: return
     for entry in msg:
         try:
             entry = entry.strip('\x00')
