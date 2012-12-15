@@ -54,6 +54,6 @@ Channel/Query commands
 CTCP Commands
 -------------
 
-/CTCP botname VERSION
-/CTCP botname USERINFO
-/CTCP botname TIME
+* /CTCP botname VERSION
+* /CTCP botname USERINFO
+* /CTCP botname TIME
