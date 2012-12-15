@@ -28,26 +28,28 @@ There are two possibilities to communicate with the Master Yoda. One is in the c
 Channel/Query commands
 ----------------------
 
-!version
-!uptime
-!quote
-!tweet username
-!header url
-!search searchterm
-!msg user message
-user ... The user which should receive the message.
-message ... The message you want send.
-The user receives the message when he/she joins the channel where the bot is. After the message is send the message will be deleted from the server.
-!feed -- Show which feeds are available.
+* !version
+* !uptime
+* !quote
+* !tweet username
+* !header url
+* !search searchterm
+* !msg user message
+    
+> user ... The user which should receive the message.<br/>
+> message ... The message you want send.<br/>
+> The user receives the message when he/she joins the channel where the bot is. After the message is send the message will be deleted from the server.
 
-  -= Projects : moksec
-  -= Security : milw0rm, heisesec, sectube, debsec
-  -= News     : ntv, n24, spiegel, cnn, bbc, prolinux, slashdot
-  -= Science  : sciencedaily, theregister
-  -= Torrent  : isohunt, torrent
+* !feed -- Show which feeds are available.
+
+> -= Projects : moksec<br/>
+> -= Security : milw0rm, heisesec, sectube, debsec<br/>
+> -= News     : ntv, n24, spiegel, cnn, bbc, prolinux, slashdot<br/>
+> -= Science  : sciencedaily, theregister<br/>
+> -= Torrent  : isohunt, torrent<br/>
   
-!feed name -- Prints the last entries of the feed (at most 10)
-!feed name n -- Prints the nth article of the feed with the name name
+* !feed name -- Prints the last entries of the feed (at most 10)
+* !feed name n -- Prints the nth article of the feed with the name name
 
 CTCP Commands
 -------------
