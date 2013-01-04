@@ -6,7 +6,7 @@ From scratch written IRC bot in python.
 Dependencies
 ------------
 
-* twitter
+* python-twitter
 
 Features
 --------
