@@ -44,7 +44,7 @@ def inqSOURCE(soc, user):
 
 def checkCTCP(soc, user, command):
     if ( command == ':\x01VERSION\x01' ):
-        sendCommandPRIVMSG(soc, user, 'VERSION :ircbot:v0.01:linux')
+        sendCommandPRIVMSG(soc, user, 'VERSION :ircbot:v0.1.0:linux')
     elif ( command == ':\x01USERINFO\x01' ):
         sendCommandPRIVMSG(soc, user, 'USERINFO :I\'m a python bot written from scratch.')
     elif ( command == ':\x01TIME\x01' ):
