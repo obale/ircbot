@@ -99,17 +99,18 @@ class IRCBot:
         soc.send('QUIT :Bot is leaving the house!\r\n')
         sys.exit(0)
 
-IRCBot()
-#if __name__ == "__main_":
-#    try:
-#        pid = os.fork()
-#        if pid > 0:
-#            sys.exit(0)
-#    except OSError, e:
-#        print >> sys.stderr, "fork failed: %d (%s)" % (e.errno, e.strerror)
-#        sys.exit(1)
-#    #os.chdir('/')
-#    os.setsid()
-#    os.umask(0)
-#    print "IRC Bot started successfully..."
-#    IRCBot()
+if len(sys.argv) == 1:
+    try:
+        pid = os.fork()
+        if pid > 0:
+            sys.exit(0)
+    except OSError, e:
+        print >> sys.stderr, "fork failed: %d (%s)" % (e.errno, e.strerror)
+        sys.exit(1)
+    #os.chdir('/')
+    os.setsid()
+    os.umask(0)
+    IRCBot()
+    print "IRC Bot started successfully..."
+else:
+    IRCBot()
