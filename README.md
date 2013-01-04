@@ -3,6 +3,10 @@ IRC Bot
 
 From scratch written IRC bot in python.
 
+~$ sh install.sh
+~$ python ircbot.py
+~$ pyhton ircbot.py debug # start the irc bot in foreground
+
 Dependencies
 ------------
 
