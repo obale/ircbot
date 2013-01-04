@@ -85,8 +85,8 @@ def getURL(feedname):
         url = 'http://www.torrent.to/pub/XML/Last.rss.xml'
     elif ( feedname == 'bbc' ):
         url = 'http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml'
-    elif ( feedname == 'moksec' ):
-        url = 'https://moksec.networld.to/trac/timeline?milestone=on&ticket=on&ticket_details=on&changeset=on&max=50&daysback=90&format=rss'
+    elif ( feedname == 'sigimera' ):
+        url = 'http://api.sigimera.org/public/crises.rss'
     elif ( feedname == 'sciencedaily' ):
         url = 'http://www.sciencedaily.com/rss/computers_math.xml'
     elif ( feedname == 'theregister' ):
@@ -106,7 +106,7 @@ def sendFeed(feedname):
 
 def getFeeds():
     msg = []
-    msg.append('-= Projects : moksec')
+    msg.append('-= Projects : sigimera')
     msg.append('-= Security : milw0rm, heisesec, sectube, debsec')
     msg.append('-= News     : ntv, n24, spiegel, cnn, bbc, prolinux, slashdot')
     msg.append('-= Science  : sciencedaily, theregister, wired')
