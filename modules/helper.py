@@ -19,6 +19,8 @@
 import socket
 import datetime
 import ConfigParser
+import time
+import string
 
 def readConfig():
     config = ConfigParser.SafeConfigParser()
@@ -42,11 +44,6 @@ def connect():
     if readConfig.SSL == "false":
         connect.soc = socket.socket()
         connect.soc.connect( (readConfig.HOST, readConfig.PORT) )
-        connect.soc.send('PASS ' + readConfig.PASS + '\r\n')
-        connect.soc.send('USER ' + readConfig.IDENT + ' 8 * :' + readConfig.FULLNAME + '\r\n')
-        connect.soc.send('NICK ' + readConfig.NICKNAME + '\r\n')
-        connect.starttime = datetime.datetime.now()
-        joinMainchannel()
     else:
         from M2Crypto import SSL, httpslib
         context = SSL.Context("sslv3")
@@ -55,8 +52,27 @@ def connect():
         connect.soc = httpslib.HTTPSConnection(readConfig.HOST, readConfig.PORT, ssl_context=context)
         SSL.Connection.postConnectionCheck = None
         connect.soc.connect()
+    connect.soc.send('PASS ' + readConfig.PASS + '\r\n')
+    checkForPing(connect.soc)
+    connect.soc.send('NICK ' + readConfig.NICKNAME + '\r\n')
+    checkForPing(connect.soc)
+    connect.soc.send('USER ' + readConfig.IDENT + ' 8 * :' + readConfig.FULLNAME + '\r\n')
+    checkForPing(connect.soc)
+    connect.starttime = datetime.datetime.now()
+    joinMainchannel()
+
+def checkForPing(soc):
+    readbuffer = soc.recv(1024)
+    tmp = string.split(readbuffer, '\n')
+    readbuffer = tmp.pop()
+    for line in tmp:
+        line = string.rstrip(line)
+        line = string.split(line)
+        if ( line[0] == 'PING' ):
+            soc.send('PONG ' + line[1] + '\r\n')
 
 def joinMainchannel():
+    time.sleep(2)
     connect.soc.send('JOIN ' + readConfig.CHANNEL + '\r\n')
 
 def getSocket():

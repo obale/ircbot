@@ -1,7 +1,7 @@
 IRC Bot
 =======
 
-From scratch written IRC bot in python. 
+From scratch written IRC bot in python.
 
 Features
 --------
@@ -35,7 +35,7 @@ Channel/Query commands
 * !header url
 * !search searchterm
 * !msg user message
-    
+
 > user ... The user which should receive the message.<br/>
 > message ... The message you want send.<br/>
 > The user receives the message when he/she joins the channel where the bot is. After the message is send the message will be deleted from the server.
@@ -47,7 +47,7 @@ Channel/Query commands
 > -= News     : ntv, n24, spiegel, cnn, bbc, prolinux, slashdot<br/>
 > -= Science  : sciencedaily, theregister<br/>
 > -= Torrent  : isohunt, torrent<br/>
-  
+
 * !feed name -- Prints the last entries of the feed (at most 10)
 * !feed name n -- Prints the nth article of the feed with the name name
 

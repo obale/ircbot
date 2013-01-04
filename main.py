@@ -75,6 +75,8 @@ class IRCBot:
                 line = string.rstrip(line)
                 line = string.split(line)
                 user = helper.getUser(line[0])
+                if ( line[0] == 'PING' ):
+                    soc.send('PONG ' + line[1] + '\r\n')
                 try:
                     if ( user != nickname and line[1] == 'PRIVMSG' ):
                         react.reactOnMSG(soc, line)
@@ -92,24 +94,22 @@ class IRCBot:
                 except Exception:
                     pass
 
-                if ( line[0] == 'PING' ):
-                    soc.send('PONG ' + line[1] + '\r\n')
-
     def clean(self, signum, frame):
         soc = helper.getSocket()
         soc.send('QUIT :Bot is leaving the house!\r\n')
         sys.exit(0)
 
 IRCBot()
-if __name__ == "__main_":
-    try:
-        pid = os.fork()
-        if pid > 0:
-            sys.exit(0)
-    except OSError, e:
-        print >> sys.stderr, "fork failed: %d (%s)" % (e.errno, e.strerror)
-        sys.exit(1)
-    #os.chdir('/')
-    os.setsid()
-    os.umask(0)
-    IRCBot()
+#if __name__ == "__main_":
+#    try:
+#        pid = os.fork()
+#        if pid > 0:
+#            sys.exit(0)
+#    except OSError, e:
+#        print >> sys.stderr, "fork failed: %d (%s)" % (e.errno, e.strerror)
+#        sys.exit(1)
+#    #os.chdir('/')
+#    os.setsid()
+#    os.umask(0)
+#    print "IRC Bot started successfully..."
+#    IRCBot()
