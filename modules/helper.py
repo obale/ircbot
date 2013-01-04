@@ -48,14 +48,13 @@ def connect():
         connect.starttime = datetime.datetime.now()
         joinMainchannel()
     else:
-        print "No SSL support!"
-        #from M2Crypto import SSL, httpslib
-        #context = SSL.Context("sslv3")
-        ## ATTENTION: The server certificate is not checked!!! 
-        #context.set_verify(0, depth = 0)
-        #connect.soc = httpslib.HTTPSConnection(readConfig.HOST, readConfig.PORT, ssl_context=context)
-        #SSL.Connection.postConnectionCheck = None
-        #connect.soc.connect()
+        from M2Crypto import SSL, httpslib
+        context = SSL.Context("sslv3")
+        ## ATTENTION: The server certificate is not checked!!!
+        context.set_verify(0, depth = 0)
+        connect.soc = httpslib.HTTPSConnection(readConfig.HOST, readConfig.PORT, ssl_context=context)
+        SSL.Connection.postConnectionCheck = None
+        connect.soc.connect()
 
 def joinMainchannel():
     connect.soc.send('JOIN ' + readConfig.CHANNEL + '\r\n')
