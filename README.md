@@ -3,6 +3,11 @@ IRC Bot
 
 From scratch written IRC bot in python.
 
+Dependencies
+------------
+
+* twitter
+
 Features
 --------
 
@@ -57,3 +62,4 @@ CTCP Commands
 * /CTCP botname VERSION
 * /CTCP botname USERINFO
 * /CTCP botname TIME
+
