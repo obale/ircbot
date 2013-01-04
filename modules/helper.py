@@ -21,6 +21,7 @@ import datetime
 import ConfigParser
 import time
 import string
+import sys
 
 def readConfig():
     config = ConfigParser.SafeConfigParser()
@@ -44,22 +45,23 @@ def connect():
     if readConfig.SSL == "false":
         connect.soc = socket.socket()
         connect.soc.connect( (readConfig.HOST, readConfig.PORT) )
+        connect.soc.send('PASS ' + readConfig.PASS + '\r\n')
+        checkForPing(connect.soc)
+        connect.soc.send('NICK ' + readConfig.NICKNAME + '\r\n')
+        checkForPing(connect.soc)
+        connect.soc.send('USER ' + readConfig.IDENT + ' 8 * :' + readConfig.FULLNAME + '\r\n')
+        checkForPing(connect.soc)
+        connect.starttime = datetime.datetime.now()
+        joinMainchannel()
     else:
-        from M2Crypto import SSL, httpslib
-        context = SSL.Context("sslv3")
+        #from M2Crypto import SSL, httpslib
+        #context = SSL.Context("sslv3")
         ## ATTENTION: The server certificate is not checked!!!
-        context.set_verify(0, depth = 0)
-        connect.soc = httpslib.HTTPSConnection(readConfig.HOST, readConfig.PORT, ssl_context=context)
-        SSL.Connection.postConnectionCheck = None
-        connect.soc.connect()
-    connect.soc.send('PASS ' + readConfig.PASS + '\r\n')
-    checkForPing(connect.soc)
-    connect.soc.send('NICK ' + readConfig.NICKNAME + '\r\n')
-    checkForPing(connect.soc)
-    connect.soc.send('USER ' + readConfig.IDENT + ' 8 * :' + readConfig.FULLNAME + '\r\n')
-    checkForPing(connect.soc)
-    connect.starttime = datetime.datetime.now()
-    joinMainchannel()
+        #context.set_verify(0, depth = 0)
+        #connect.soc = httpslib.HTTPSConnection(readConfig.HOST, readConfig.PORT, ssl_context=context)
+        #SSL.Connection.postConnectionCheck = None
+        #connect.soc.connect()
+        sys.exit("SSL support currently broken... Sorry for the inconvenience!")
 
 def checkForPing(soc):
     readbuffer = soc.recv(1024)
